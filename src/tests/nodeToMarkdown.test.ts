@@ -31,6 +31,36 @@ describe('nodeToMarkdown', () => {
     expect(nodeToMarkdown(input)).toBe(expected);
   });
 
+  it('tmp', () => {
+    const input = parseAndGetFirstNode('[GitHub Docs https://docs.github.com]');
+    const expected = '[GitHub Docs](https://docs.github.com)';
+    expect(nodeToMarkdown(input)).toBe(expected);
+  });
+
+  it('tmp2', () => {
+    const input = parseAndGetFirstNode('[https://docs.github.com GitHub Docs]');
+    const expected = '[GitHub Docs](https://docs.github.com)';
+    expect(nodeToMarkdown(input)).toBe(expected);
+  });
+
+  it('tmp3', () => {
+    const input = parseAndGetFirstNode('[https://github.com https://google.com]');
+    const expected = '[https://google.com](https://github.com)';
+    expect(nodeToMarkdown(input)).toBe(expected);
+  });
+
+  it('tmp4', () => {
+    const input = parseAndGetFirstNode('[https://github.com google.com]');
+    const expected = '[google.com](https://github.com)';
+    expect(nodeToMarkdown(input)).toBe(expected);
+  });
+
+  it('tmp5', () => {
+    const input = parseAndGetFirstNode('[github.com https://google.com]');
+    const expected = '[github.com](https://google.com)';
+    expect(nodeToMarkdown(input)).toBe(expected);
+  });
+
   it('converts root link node to markdown', () => {
     const input = parseAndGetFirstNode('[/help-jp/ブラケティング]');
     const expected = '[/help-jp/ブラケティング](https://scrapbox.io/help-jp/ブラケティング)';
